@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck213n0do3giy"]
+
+[ext_resource type="PackedScene" uid="uid://dfa4s0cyjbxyw" path="res://nodes/light/abstract_light.tscn" id="1_qwe6j"]
+
+[sub_resource type="Gradient" id="Gradient_fbvbi"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.577922, 0.701299)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kewqf"]
+gradient = SubResource("Gradient_fbvbi")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35hkn"]
+radius = 56.0
+
+[node name="Light" instance=ExtResource("1_qwe6j")]
+
+[node name="PointLight2D" parent="." index="0"]
+texture = SubResource("GradientTexture2D_kewqf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_35hkn")
