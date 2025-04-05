@@ -6,14 +6,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rpgms"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_67yjf"]
-radius = 25.0
+radius = 30.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_tm02q")
-speed = null
-dash_speed = null
-heal_on_kill = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.15, 0.15)
@@ -28,6 +25,7 @@ one_shot = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 1
 shape = SubResource("CircleShape2D_67yjf")
 
 [connection signal="timeout" from="Timer_dash" to="." method="_on_timer_dash_timeout"]

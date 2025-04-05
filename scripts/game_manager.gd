@@ -34,6 +34,7 @@ func game_over() -> void:
 
 func enemy_killed(enemy: Enemy) -> void:
 	if get_tree().get_nodes_in_group("enemy").filter(func(x): return x != enemy).is_empty():
+		await get_tree().get_frame()
 		ui.show_success()
 		get_tree().paused = true
 		

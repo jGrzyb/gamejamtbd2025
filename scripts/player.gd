@@ -35,10 +35,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("attack"):
 		var enemies = area_2d.get_overlapping_bodies().filter(func(x): return x is Enemy)
 		for e in enemies:
-			var enemy = e as Enemy
-			if not enemy.is_chasing:
-				enemy.start_dying()
-				game_manager.add_life(heal_on_kill)
+			(e as Enemy).hit(self)
 
 
 func _on_timer_dash_timeout() -> void:
