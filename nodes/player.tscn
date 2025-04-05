@@ -1,11 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cw6b88h70nr4s"]
+[gd_scene load_steps=5 format=3 uid="uid://cw6b88h70nr4s"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tm02q"]
 [ext_resource type="Texture2D" uid="uid://c8dc14i54swgg" path="res://icon.svg" id="2_llabm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rpgms"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_67yjf"]
+radius = 20.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
 script = ExtResource("1_tm02q")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -14,3 +18,13 @@ texture = ExtResource("2_llabm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rpgms")
+
+[node name="Timer_dash" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_67yjf")
+
+[connection signal="timeout" from="Timer_dash" to="." method="_on_timer_dash_timeout"]
