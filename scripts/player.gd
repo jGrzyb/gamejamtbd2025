@@ -9,6 +9,7 @@ var game_manager: GameManager
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer_attack: Timer = $Timer_attack
 @onready var timer_die: Timer = $Timer_die
+@onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 
 @export var speed := 100
 @export var dash_speed := 400
@@ -40,7 +41,7 @@ func _input(event: InputEvent) -> void:
 		timer_dash.start()
 	elif event.is_action_pressed("attack"):
 		is_basic_anim = false
-		animated_sprite_2d.play("attack")
+		cpu_particles_2d.emitting = true
 		timer_attack.start()
 		var enemies = area_2d.get_overlapping_bodies().filter(func(x): return x is Enemy)
 		for e in enemies:
