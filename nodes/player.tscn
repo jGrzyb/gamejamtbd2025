@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://cw6b88h70nr4s"]
+[gd_scene load_steps=42 format=3 uid="uid://cw6b88h70nr4s"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tm02q"]
 [ext_resource type="Texture2D" uid="uid://c18rakhna0btg" path="res://assets/vl.png" id="2_guqat"]
+[ext_resource type="Texture2D" uid="uid://c25ixwy6mqbbg" path="res://assets/attack.png" id="3_hpj4p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h7ept"]
 atlas = ExtResource("2_guqat")
@@ -279,10 +280,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rpgms"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3dn30"]
+radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_67yjf"]
-radius = 30.0
+radius = 35.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xajuj"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -290,10 +298,10 @@ script = ExtResource("1_tm02q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e2kwg")
-animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_rpgms")
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_3dn30")
 
 [node name="Timer_dash" type="Timer" parent="."]
 one_shot = true
@@ -311,6 +319,22 @@ one_shot = true
 [node name="Timer_attack" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_xajuj")
+use_parent_material = true
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+texture = ExtResource("3_hpj4p")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+damping_min = 100.0
+damping_max = 200.0
 
 [connection signal="timeout" from="Timer_dash" to="." method="_on_timer_dash_timeout"]
 [connection signal="timeout" from="Timer_die" to="." method="_on_timer_die_timeout"]
