@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://brt73py0nate4"]
+
+[ext_resource type="Texture2D" uid="uid://c8dc14i54swgg" path="res://icon.svg" id="1_0vsw6"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_u3ohy"]
+[ext_resource type="PackedScene" uid="uid://2ykr55kyp6qs" path="res://nodes/light/triangle_light.tscn" id="3_qvblk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7efrh"]
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+motion_mode = 1
+script = ExtResource("1_u3ohy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_0vsw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7efrh")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, 0, 56, -29, 63, -1, 56, 29)
+
+[node name="Light" parent="Area2D" instance=ExtResource("3_qvblk")]
+
+[node name="Timer_path" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Timer_chase" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Timer_die" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer_path" to="." method="_on_timer_path_timeout"]
+[connection signal="timeout" from="Timer_chase" to="." method="_on_timer_chase_timeout"]
+[connection signal="timeout" from="Timer_die" to="." method="_on_timer_die_timeout"]
