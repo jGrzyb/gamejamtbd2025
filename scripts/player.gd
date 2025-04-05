@@ -2,15 +2,21 @@ extends CharacterBody2D
 
 class_name Player
 
+var game_manager: GameManager
+
 @onready var timer_dash: Timer = $Timer_dash
 @onready var area_2d: Area2D = $Area2D
 
 @export var speed := 100
-@export var life := 1000
-@export var dash_speed := 300
+@export var dash_speed := 400
+@export var heal_on_kill := 10
 
 var last_direction := Vector2(0, 1)
 var can_dash := true
+
+
+func _ready() -> void:
+	game_manager = get_tree().get_first_node_in_group("game_manager")
 
 
 func _physics_process(delta: float) -> void:
@@ -21,11 +27,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func hit(damage_per_frame: float):
-	life -= damage_per_frame
-	print(life)
-
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("dash") and can_dash:
 		can_dash = false
@@ -34,7 +35,10 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("attack"):
 		var enemies = area_2d.get_overlapping_bodies().filter(func(x): return x is Enemy)
 		for e in enemies:
-			(e as Enemy).start_dying()
+			var enemy = e as Enemy
+			if not enemy.is_chasing:
+				enemy.start_dying()
+				game_manager.add_life(heal_on_kill)
 
 
 func _on_timer_dash_timeout() -> void:

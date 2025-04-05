@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Enemy
 
+var game_manager: GameManager
+
 var walk_speed := 30
 var chase_speed := 60
 var is_chasing := false
@@ -12,6 +14,10 @@ var is_chasing := false
 @onready var area_2d: Area2D = $Area2D
 @onready var timer_chase: Timer = $Timer_chase
 @onready var timer_die: Timer = $Timer_die
+
+
+func _ready() -> void:
+	game_manager = get_tree().get_first_node_in_group("game_manager")
 
 
 func _physics_process(delta: float) -> void:
@@ -26,7 +32,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = velocity.lerp(direction * speed, 0.1)
 
-	area_2d.rotation = lerp_angle(area_2d.rotation, direction.angle(), 0.1)
+	area_2d.rotation = lerp_angle(area_2d.rotation, direction.angle(), 0.05)
 	move_and_slide()
 	
 
@@ -59,4 +65,5 @@ func start_dying():
 
 
 func _on_timer_die_timeout() -> void:
+	game_manager.enemy_killed(self)
 	queue_free()
