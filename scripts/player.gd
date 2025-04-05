@@ -33,7 +33,7 @@ func _input(event: InputEvent) -> void:
 		timer_dash.start()
 	elif event.is_action_pressed("attack"):
 		var enemies = area_2d.get_overlapping_bodies().filter(func(x): return x is Enemy)
-		for e in enemies:
+		for e in enemies: 
 			(e as Enemy).start_dying()
 
 
