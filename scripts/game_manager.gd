@@ -3,6 +3,7 @@ extends Node
 class_name GameManager
 
 @onready var ui: UI;
+@onready var player: Player = %Player
 
 @export var max_life := 100.0
 @export var life_leaking := 0.02
@@ -24,7 +25,7 @@ func add_life(amount: float) -> void:
 	life = clamp(life + amount, 0, 100)
 	ui.set_life(life / max_life)
 	if life == 0:
-		game_over()
+		player.die()
 
 
 func game_over() -> void:
