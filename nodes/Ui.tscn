@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1km5kdckcnh0"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_g3x8j"]
+
+[node name="Ui" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_g3x8j")
+
+[node name="Life" type="Control" parent="."]
+process_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Life"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 212.0
+offset_bottom = -8.0
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Life/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.690158, 0, 0.0904374, 1)
+
+[node name="GameOver" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.176419, 0.176419, 0.176419, 0.572549)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Skill Issue"
+
+[node name="Button_restart" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Restart"
+
+[node name="Success" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Success"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.176419, 0.176419, 0.176419, 0.572549)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Success"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Success/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "You won"
+
+[node name="Button_next" type="Button" parent="Success/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Next"
+
+[connection signal="pressed" from="GameOver/VBoxContainer/Button_restart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="Success/VBoxContainer/Button_next" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Success/VBoxContainer/Button_next" to="." method="_on_button_next_pressed"]

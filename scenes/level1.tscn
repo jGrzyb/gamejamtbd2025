@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://cuc8gl5hbcitd"]
+[gd_scene load_steps=18 format=4 uid="uid://byvi2t0cd24j0"]
 
 [ext_resource type="PackedScene" uid="uid://cw6b88h70nr4s" path="res://nodes/player.tscn" id="1_1ckq3"]
 [ext_resource type="Texture2D" uid="uid://c8dc14i54swgg" path="res://icon.svg" id="1_hm815"]
+[ext_resource type="PackedScene" uid="uid://bns3btstjkllq" path="res://nodes/game_manager.tscn" id="1_sdl2v"]
 [ext_resource type="PackedScene" uid="uid://ck213n0do3giy" path="res://nodes/light/circle_light.tscn" id="3_7dydp"]
 [ext_resource type="PackedScene" uid="uid://brt73py0nate4" path="res://nodes/enemy.tscn" id="4_enx7h"]
+[ext_resource type="PackedScene" uid="uid://c1km5kdckcnh0" path="res://nodes/Ui.tscn" id="5_fmnov"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vj728"]
 vertices = PackedVector2Array(128, -16, 128, -64, 185, -107.031, 185, 106, 112, -64, 112, -96, -203.797, -107.961, 48, -96, -201.188, 106, 32, -64, 48, -64, 32, 64, 80, 64, 80, 16, 112, 16, 112, -16)
@@ -89,7 +91,9 @@ physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_peu2j")
 
-[node name="Walking" type="Node2D"]
+[node name="Level1" type="Node"]
+
+[node name="GameManager" parent="." instance=ExtResource("1_sdl2v")]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_vj728")
@@ -110,3 +114,9 @@ position = Vector2(79, -40)
 
 [node name="Enemy" parent="." instance=ExtResource("4_enx7h")]
 position = Vector2(-143, -59)
+
+[node name="Ui" parent="." groups=["ui"] instance=ExtResource("5_fmnov")]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.5
+blend_mode = 1
