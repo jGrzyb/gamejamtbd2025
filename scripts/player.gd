@@ -14,6 +14,7 @@ var game_manager: GameManager
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 @onready var cpu_particles_2d_2: CPUParticles2D = $CPUParticles2D2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var cpu_particles_2d_3: CPUParticles2D = $CPUParticles2D3
 
 @export var speed := 100
 @export var dash_speed := 400

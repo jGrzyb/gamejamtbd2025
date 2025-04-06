@@ -29,6 +29,8 @@ func add_life(amount: float) -> void:
 	ui.set_life(life / max_life)
 	if life == 0:
 		player.die()
+	if amount < -0.4:
+		player.cpu_particles_2d_3.emitting = true
 
 
 func game_over() -> void:

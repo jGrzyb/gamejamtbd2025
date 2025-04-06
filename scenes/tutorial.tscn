@@ -16,6 +16,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_vjb32")
+game_path = "res://scenes/level1.tscn"
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Start"]
 z_index = -10

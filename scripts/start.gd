@@ -1,6 +1,6 @@
 extends Control
 
-@export var game_path := "res://scenes/level1.tscn"
+@export var game_path := "res://scenes/tutorial.tscn"
 
 
 func _ready() -> void:

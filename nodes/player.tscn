@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://cw6b88h70nr4s"]
+[gd_scene load_steps=79 format=3 uid="uid://cw6b88h70nr4s"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tm02q"]
 [ext_resource type="Texture2D" uid="uid://c18rakhna0btg" path="res://assets/vl.png" id="2_guqat"]
@@ -519,6 +519,10 @@ interpolation_mode = 2
 offsets = PackedFloat32Array(0.53125, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="Curve" id="Curve_wm2ff"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.222591, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Gradient" id="Gradient_uuy76"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.581731, 0.706731)
@@ -658,6 +662,24 @@ scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_fnr5f")
 color = Color(0.881524, 0.747042, 0, 1)
 color_ramp = SubResource("Gradient_ib4c8")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+light_mask = 0
+position = Vector2(-2, -1)
+emitting = false
+amount = 256
+lifetime = 0.5
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(3, 10)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 1000)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_wm2ff")
+color = Color(0.854557, 0, 0.0988744, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-2, 15)
