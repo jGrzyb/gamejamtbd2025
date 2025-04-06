@@ -26,6 +26,7 @@ player=""
 enemy=""
 ui=""
 game_manager=""
+artifact=""
 
 [input]
 

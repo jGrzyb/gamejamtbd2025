@@ -10,10 +10,12 @@ class_name GameManager
 @export var next_scene_path := "res://scenes/start.tscn"
 
 var life := max_life
+var artifacts_left: int
 
 
 func _ready() -> void:
 	ui = get_tree().get_first_node_in_group("ui") as UI
+	artifacts_left = len(get_tree().get_nodes_in_group("artifact"))
 	get_tree().paused = false
 
 
@@ -34,8 +36,14 @@ func game_over() -> void:
 
 
 func enemy_killed(enemy: Enemy) -> void:
-	if get_tree().get_nodes_in_group("enemy").filter(func(x): return x != enemy).is_empty():
+	pass
+
+
+func collect() -> void:
+	artifacts_left -= 1
+	ui.set_artifacts(artifacts_left)
+	if artifacts_left <= 0:
 		await get_tree().get_frame()
 		ui.show_success()
 		get_tree().paused = true
-		
+	

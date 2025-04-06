@@ -5,6 +5,7 @@ class_name UI
 @onready var color_rect: ColorRect = $Life/ColorRect/ColorRect
 @onready var game_over: Control = $GameOver
 @onready var success: Control = $Success
+@onready var label: Label = $Life/Label
 
 @export var life_length := 200
 
@@ -13,6 +14,7 @@ var game_manager: GameManager
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_manager")
+	label.text = "Artifacts left: " + str(game_manager.artifacts_left)
 
 func set_life(procent: float):
 	color_rect.size.x = procent * life_length
@@ -32,3 +34,6 @@ func _on_button_restart_pressed() -> void:
 
 func _on_button_next_pressed() -> void:
 	get_tree().change_scene_to_file(game_manager.next_scene_path)
+
+func set_artifacts(left: int) -> void:
+	label.text = "Artifacts left: " + str(left)
