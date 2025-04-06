@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=4 uid="uid://byvi2t0cd24j0"]
+[gd_scene load_steps=19 format=4 uid="uid://byvi2t0cd24j0"]
 
 [ext_resource type="PackedScene" uid="uid://cw6b88h70nr4s" path="res://nodes/player.tscn" id="1_1ckq3"]
 [ext_resource type="Texture2D" uid="uid://c8dc14i54swgg" path="res://icon.svg" id="1_hm815"]
 [ext_resource type="PackedScene" uid="uid://bns3btstjkllq" path="res://nodes/game_manager.tscn" id="1_sdl2v"]
 [ext_resource type="PackedScene" uid="uid://ck213n0do3giy" path="res://nodes/light/circle_light.tscn" id="3_7dydp"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="3_bxs1g"]
 [ext_resource type="PackedScene" uid="uid://brt73py0nate4" path="res://nodes/enemy.tscn" id="4_enx7h"]
 [ext_resource type="PackedScene" uid="uid://c1km5kdckcnh0" path="res://nodes/Ui.tscn" id="5_fmnov"]
 
@@ -104,6 +105,7 @@ tile_set = SubResource("TileSet_opxan")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+script = ExtResource("3_bxs1g")
 
 [node name="Player" parent="." instance=ExtResource("1_1ckq3")]
 unique_name_in_owner = true
