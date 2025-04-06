@@ -102,6 +102,7 @@ func hit(player: Player) -> void:
 	if not is_chasing:
 		game_manager.add_life(10)
 		start_dying()
+		MusicNode.kill()
 	else:
 		velocity = (position - player.position).normalized() * push_strength
 
