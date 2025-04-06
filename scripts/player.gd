@@ -7,9 +7,12 @@ var game_manager: GameManager
 @onready var timer_dash: Timer = $Timer_dash
 @onready var area_2d: Area2D = $Area2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite_2d_2: AnimatedSprite2D = $AnimatedSprite2D2
+
 @onready var timer_attack: Timer = $Timer_attack
 @onready var timer_die: Timer = $Timer_die
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
+@onready var cpu_particles_2d_2: CPUParticles2D = $CPUParticles2D2
 
 @export var speed := 100
 @export var dash_speed := 400
@@ -55,12 +58,16 @@ func _on_timer_dash_timeout() -> void:
 func choose_animation(direction: Vector2):
 	if direction.x > 0:
 		animated_sprite_2d.play("right")
+		animated_sprite_2d_2.play("right")
 	elif direction.x < 0:
 		animated_sprite_2d.play("left")
+		animated_sprite_2d_2.play("left")
 	elif direction.y < 0:
 		animated_sprite_2d.play("up")
+		animated_sprite_2d_2.play("up")
 	elif direction.y > 0:
 		animated_sprite_2d.play("down")
+		animated_sprite_2d_2.play("down")
 
 
 func die() -> void:
@@ -68,6 +75,7 @@ func die() -> void:
 		timer_attack.stop()
 		is_basic_anim = false
 		animated_sprite_2d.play("die")
+		animated_sprite_2d_2.play("die")
 		timer_die.start()
 
 
@@ -78,3 +86,9 @@ func _on_timer_die_timeout() -> void:
 func _on_timer_attack_timeout() -> void:
 	is_basic_anim = true
 	animated_sprite_2d.play("down")
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("artifact"):
+		(area as Artifact).collect(self)
+		cpu_particles_2d_2.emitting = true

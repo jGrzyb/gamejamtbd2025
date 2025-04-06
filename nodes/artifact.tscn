@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://bs2jmnw7dhogw"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_6new6"]
+[ext_resource type="Texture2D" uid="uid://bof6asjyk6cfe" path="res://assets/bettertilemap1.png" id="1_3510c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oie4h"]
+atlas = ExtResource("1_3510c")
+region = Rect2(347, 276, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ssb0"]
+atlas = ExtResource("1_3510c")
+region = Rect2(357, 266, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42vuj"]
+atlas = ExtResource("1_3510c")
+region = Rect2(362, 277, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rv2rj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oie4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ssb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42vuj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wj0rt"]
+radius = 8.0
+
+[sub_resource type="Curve" id="Curve_ylu4r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.258621, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_s8raa"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.53125, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Artifact" type="Area2D" groups=["artifact"]]
+z_index = 3
+script = ExtResource("1_6new6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+sprite_frames = SubResource("SpriteFrames_rv2rj")
+frame_progress = 0.216537
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wj0rt")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+light_mask = 0
+amount = 16
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.7
+orbit_velocity_max = 1.0
+scale_amount_curve = SubResource("Curve_ylu4r")
+color = Color(0.881524, 0.747042, 0, 1)
+color_ramp = SubResource("Gradient_s8raa")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

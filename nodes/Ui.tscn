@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1km5kdckcnh0"]
+[gd_scene load_steps=3 format=3 uid="uid://c1km5kdckcnh0"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_g3x8j"]
+[ext_resource type="FontFile" uid="uid://pioybifbrycn" path="res://assets/bitcell_memesbruh03.ttf" id="2_k8lw0"]
 
 [node name="Ui" type="CanvasLayer"]
 process_mode = 3
@@ -41,6 +42,24 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.690158, 0, 0.0904374, 1)
+
+[node name="Label" type="Label" parent="Life"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -38.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_k8lw0")
+theme_override_font_sizes/font_size = 32
+text = "Artifacts left: -1"
+horizontal_alignment = 2
 
 [node name="GameOver" type="Control" parent="."]
 visible = false
@@ -127,5 +146,5 @@ theme_override_font_sizes/font_size = 50
 text = "Next"
 
 [connection signal="pressed" from="GameOver/VBoxContainer/Button_restart" to="." method="_on_button_restart_pressed"]
-[connection signal="pressed" from="Success/VBoxContainer/Button_next" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Success/VBoxContainer/Button_next" to="." method="_on_button_next_pressed"]
+[connection signal="pressed" from="Success/VBoxContainer/Button_next" to="." method="_on_button_pressed"]
