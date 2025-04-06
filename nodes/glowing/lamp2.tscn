@@ -28,6 +28,7 @@ shape = SubResource("CircleShape2D_6abha")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
+z_index = 4
 position = Vector2(0, -43)
 sprite_frames = SubResource("SpriteFrames_liigp")
 autoplay = "default"

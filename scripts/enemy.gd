@@ -13,17 +13,20 @@ var is_alive := true
 @onready var player: Node2D = %Player
 @onready var timer_path: Timer = $Timer_path
 @onready var area_2d: Area2D = $Area2D
-@onready var timer_chase: Timer = $Timer_chase
 @onready var timer_die: Timer = $Timer_die
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var light: Node2D = $Area2D/Light
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var timer_chase: Timer = $Timer_chase
+@onready var timer_start: Timer = $Timer_start
+
 
 @export var push_strength := 300
 
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_manager")
+	timer_start.start()
 
 
 func _physics_process(delta: float) -> void:
@@ -97,6 +100,12 @@ func choose_animtion(rot: float):
 
 func hit(player: Player) -> void:
 	if not is_chasing:
+		game_manager.add_life(10)
 		start_dying()
 	else:
 		velocity = (position - player.position).normalized() * push_strength
+
+
+func _on_timer_start_timeout() -> void:
+	var map := get_world_2d().navigation_map
+	navigation_agent_2d.target_position = NavigationServer2D.map_get_random_point(map, 1, true)
