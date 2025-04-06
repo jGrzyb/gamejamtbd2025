@@ -73,6 +73,7 @@ func choose_animation(direction: Vector2):
 
 func die() -> void:
 	if timer_die.is_stopped():
+		MusicNode.die()
 		timer_attack.stop()
 		is_dying = true
 		animated_sprite_2d.play("die")

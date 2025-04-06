@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://cou0cq777070s"]
+
+[ext_resource type="Script" path="res://Music.gd" id="1_yu536"]
+[ext_resource type="AudioStream" uid="uid://1vcbbd1vtikg" path="res://assets/menu_music.mp3" id="2_jcg5u"]
+[ext_resource type="AudioStream" uid="uid://bd5do24av0d8l" path="res://assets/main_music.mp3" id="3_ku4sm"]
+[ext_resource type="AudioStream" uid="uid://cg01ukeurip57" path="res://assets/dzwiek-wygranej.mp3" id="4_sn1nn"]
+[ext_resource type="AudioStream" uid="uid://dhcyi3c4x50ck" path="res://assets/dzwiek-umierania-wroga.mp3" id="5_nuo6y"]
+[ext_resource type="AudioStream" uid="uid://dgjittduqg2px" path="res://assets/dzwiek-umierania-naszej-postaci.mp3" id="6_rod78"]
+
+[node name="Music" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_yu536")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_jcg5u")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ku4sm")
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sn1nn")
+
+[node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_nuo6y")
+
+[node name="AudioStreamPlayer2D5" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rod78")
