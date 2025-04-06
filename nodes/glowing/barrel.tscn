@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbw6ak8g4iyeb"]
+
+[ext_resource type="Texture2D" uid="uid://bof6asjyk6cfe" path="res://assets/bettertilemap1.png" id="1_c4yvw"]
+[ext_resource type="PackedScene" uid="uid://dgcoxwlb5bhyw" path="res://nodes/light/elipse_light.tscn" id="2_du2pd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vse5p"]
+atlas = ExtResource("1_c4yvw")
+region = Rect2(168, 336, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg17a"]
+atlas = ExtResource("1_c4yvw")
+region = Rect2(200, 336, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6to2g"]
+atlas = ExtResource("1_c4yvw")
+region = Rect2(232, 336, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w7jco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vse5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg17a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6to2g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6abha"]
+radius = 14.0
+
+[node name="Barrel" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+sprite_frames = SubResource("SpriteFrames_w7jco")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6abha")
+
+[node name="Light" parent="." instance=ExtResource("2_du2pd")]

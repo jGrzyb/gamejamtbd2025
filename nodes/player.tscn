@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://cw6b88h70nr4s"]
+[gd_scene load_steps=78 format=3 uid="uid://cw6b88h70nr4s"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tm02q"]
 [ext_resource type="Texture2D" uid="uid://c18rakhna0btg" path="res://assets/vl.png" id="2_guqat"]
@@ -498,8 +498,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fssbm"]
-radius = 8.0
-height = 34.0
+radius = 6.0
+height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_67yjf"]
 radius = 35.0
@@ -518,6 +518,71 @@ point_count = 2
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.53125, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_uuy76"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.581731, 0.706731)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t68sf"]
+gradient = SubResource("Gradient_uuy76")
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_2rdan"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_sb03h"]
+resource_name = "die"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2gvvh"]
+resource_name = "kill"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pmbko"]
+_data = {
+"RESET": SubResource("Animation_2rdan"),
+"die": SubResource("Animation_sb03h"),
+"kill": SubResource("Animation_2gvvh")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 2
@@ -542,6 +607,7 @@ position = Vector2(-2, 1)
 shape = SubResource("CapsuleShape2D_fssbm")
 
 [node name="Timer_dash" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -592,6 +658,16 @@ scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_fnr5f")
 color = Color(0.881524, 0.747042, 0, 1)
 color_ramp = SubResource("Gradient_ib4c8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-2, 15)
+energy = 0.0
+texture = SubResource("GradientTexture2D_t68sf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pmbko")
+}
 
 [connection signal="timeout" from="Timer_dash" to="." method="_on_timer_dash_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

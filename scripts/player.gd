@@ -13,6 +13,7 @@ var game_manager: GameManager
 @onready var timer_die: Timer = $Timer_die
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 @onready var cpu_particles_2d_2: CPUParticles2D = $CPUParticles2D2
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed := 100
 @export var dash_speed := 400
@@ -20,7 +21,7 @@ var game_manager: GameManager
 
 var last_direction := Vector2(0, 1)
 var can_dash := true
-var is_basic_anim := true
+var is_dying := false
 
 
 func _ready() -> void:
@@ -28,13 +29,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var direction = Input.get_vector("left", "right", "up", "down")
-	if is_basic_anim:
+	if not is_dying:
+		var direction = Input.get_vector("left", "right", "up", "down")
 		choose_animation(direction)
-	velocity = velocity.lerp(direction * speed, 0.1)
-	if direction != Vector2.ZERO:
-		last_direction = direction
-	move_and_slide()
+		velocity = velocity.lerp(direction * speed, 0.1)
+		if direction != Vector2.ZERO:
+			last_direction = direction
+		move_and_slide()
 
 
 func _input(event: InputEvent) -> void:
@@ -43,8 +44,8 @@ func _input(event: InputEvent) -> void:
 		velocity = last_direction * dash_speed
 		timer_dash.start()
 	elif event.is_action_pressed("attack"):
-		is_basic_anim = false
 		cpu_particles_2d.emitting = true
+		animation_player.play("kill")
 		timer_attack.start()
 		var enemies = area_2d.get_overlapping_bodies().filter(func(x): return x is Enemy)
 		for e in enemies:
@@ -73,19 +74,15 @@ func choose_animation(direction: Vector2):
 func die() -> void:
 	if timer_die.is_stopped():
 		timer_attack.stop()
-		is_basic_anim = false
+		is_dying = true
 		animated_sprite_2d.play("die")
 		animated_sprite_2d_2.play("die")
+		animation_player.play("die")
 		timer_die.start()
 
 
 func _on_timer_die_timeout() -> void:
 	game_manager.game_over()
-
-
-func _on_timer_attack_timeout() -> void:
-	is_basic_anim = true
-	animated_sprite_2d.play("down")
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
